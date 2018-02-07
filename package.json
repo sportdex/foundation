@@ -1,0 +1,8 @@
+{
+  "name": "spo",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/sportikme/spo",
+  "author": "Chenyang Wu <shivaw@gmail.com>",
+  "license": "MIT"
+}
