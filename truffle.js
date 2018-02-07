@@ -5,6 +5,8 @@ module.exports = {
       port: 9545,
       network_id: '*',
     },
+    // Start geth by: geth --rinkeby --rpc --rpcapi db,eth,net,web3,protocol console
+    // and unlock the from account by: personal.unlockAccount(address)
     test: {
       host: 'localhost',
       port: 8545,
