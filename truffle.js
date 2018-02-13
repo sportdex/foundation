@@ -1,3 +1,5 @@
+require('@babel/register');
+
 module.exports = {
   networks: {
     dev: {
@@ -7,7 +9,7 @@ module.exports = {
     },
     // Start geth by: geth --rinkeby --rpc --rpcapi db,eth,net,web3,protocol console
     // and unlock the from account by: personal.unlockAccount(address)
-    test: {
+    rinkeby: {
       host: 'localhost',
       port: 8545,
       from: '0xA711642Dec94A673f0E3707010311C531E6F17fB',

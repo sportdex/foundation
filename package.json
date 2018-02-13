@@ -1,8 +1,16 @@
 {
-  "name": "spo",
+  "name": "sporteum",
   "version": "0.0.1",
   "main": "index.js",
   "repository": "https://github.com/sportikme/spo",
-  "author": "Chenyang Wu <shivaw@gmail.com>",
-  "license": "MIT"
+  "author": "Leo Wu <wucy@sportik.me>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.40",
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/polyfill": "^7.0.0-beta.40",
+    "@babel/preset-env": "^7.0.0-beta.40",
+    "@babel/register": "^7.0.0-beta.40",
+    "truffle": "^4.0.6"
+  }
 }
