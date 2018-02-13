@@ -11,6 +11,7 @@
     "@babel/polyfill": "^7.0.0-beta.40",
     "@babel/preset-env": "^7.0.0-beta.40",
     "@babel/register": "^7.0.0-beta.40",
-    "truffle": "^4.0.6"
+    "truffle": "^4.0.6",
+    "zeppelin-solidity": "^1.6.0"
   }
 }
