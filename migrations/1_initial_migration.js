@@ -4,4 +4,4 @@ function deploy(deployer) {
   deployer.deploy(Migrations);
 }
 
-export default deploy;
+module.exports = deploy;
