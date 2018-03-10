@@ -3,23 +3,14 @@ pragma solidity ^0.4.18;
 import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
 import "../../contracts/token/SportikToken.sol";
-
-contract TokenUser {
-  function approve(SportikToken token, address delegate, uint amount) public returns (bool) {
-    return token.approve(delegate, amount);
-  }
-
-  function transferFrom(SportikToken token, address from, address to, uint amount) public returns (bool) {
-    return token.transferFrom(from, to, amount);
-  }
-}
+import "./TestUtils.sol";
 
 contract SportikTokenTest {
   function testTokenBasic() public {
     SportikToken token = SportikToken(DeployedAddresses.SportikToken());
-    Assert.equal(token.NAME(), "SportikToken", "Incorrect token name");
-    Assert.equal(token.SYMBOL(), "SPORT", "Incorrect token symbol");
-    Assert.equal(token.DECIMALS(), uint256(18), "Incorrect decimals");
+    Assert.equal(token.name(), "SportikToken", "Incorrect token name");
+    Assert.equal(token.symbol(), "SPORT", "Incorrect token symbol");
+    Assert.equal(token.decimals(), uint256(18), "Incorrect decimals");
     Assert.equal(token.balanceOf(token.owner()), 1e27, "Incorrect total supply");
   }
 
@@ -44,13 +35,15 @@ contract SportikTokenTest {
   function testTransferFrom() public {
     uint amount = 1000;
     uint spent = 100;
+    SportikToken token = new SportikToken();
     TokenUser user1 = new TokenUser();
     TokenUser user2 = new TokenUser();
-    SportikToken token = new SportikToken();
+    user1.setToken(token);
+    user2.setToken(token);
     token.transfer(address(user1), amount);
-    user1.approve(token, address(user2), amount);
+    user1.approve(address(user2), amount);
     Assert.equal(token.allowance(address(user1), address(user2)), amount, "Fail to approve");
-    user2.transferFrom(token, address(user1), address(user2), spent);
+    user2.transferFrom(address(user1), address(user2), spent);
     Assert.equal(token.balanceOf(address(user1)), amount - spent, "Incorrect balance");
     Assert.equal(token.balanceOf(address(user2)), spent, "Incorrect balance");
     Assert.equal(token.balanceOf(address(this)), 1e27 - amount, "Incorrect balance");
