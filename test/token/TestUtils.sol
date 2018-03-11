@@ -31,8 +31,8 @@ contract TokenPoolProxy {
     return pool.getBalance();
   }
 
-  function batchDeposit(address[] addrs, uint256[] amounts) public returns (bool) {
-    return pool.batchDeposit(addrs, amounts);
+  function batchDeposit(uint256 batchId, address[] addrs, uint256[] amounts) public returns (bool) {
+    return pool.batchDeposit(batchId, addrs, amounts);
   }
 
   function drain() public returns (bool) {
