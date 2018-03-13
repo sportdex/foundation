@@ -9,7 +9,7 @@ import "zeppelin-solidity/contracts/token/ERC20/PausableToken.sol";
 contract SportikToken is PausableToken {
   bytes32 public constant name = "SportikToken";
   bytes32 public constant symbol= "SPORT";
-  uint8 public constant decimals = 18;
+  uint8 public constant decimals = 4;
   uint256 public constant initial_supply = 1e9;
 
   function SportikToken() public {
