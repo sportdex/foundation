@@ -1,6 +1,7 @@
 pragma solidity ^0.4.18;
 
 import "zeppelin-solidity/contracts/token/ERC20/ERC20.sol";
+import "../../contracts/token/DelegatableToken.sol";
 import "../../contracts/token/SportikToken.sol";
 import "../../contracts/token/TokenPool.sol";
 
