@@ -13,7 +13,7 @@ contract SportikToken is PausableToken, DelegatableToken {
   uint8 public constant decimals = 4;
   uint256 public constant initial_supply = 1e9;
 
-  mapping (address => bool) delegateWhitelist;
+  mapping (address => bool) public delegateWhitelist;
 
   function SportikToken() public {
     uint256 total = initial_supply * 10 ** uint256(decimals);
@@ -34,9 +34,9 @@ contract SportikToken is PausableToken, DelegatableToken {
     address to,
     uint256 value,
     uint256 nonce,
-    bytes sig
+    uint8 v, bytes32 r, bytes32 s
   ) public returns (bool) {
-    require(delegateWhitelist[msg.sender] == true);
-    super.delegateTransfer(from, to, value, nonce, sig);
+    require(delegateWhitelist[msg.sender]);
+    return super.delegateTransfer(from, to, value, nonce, v, r, s);
   }
 }

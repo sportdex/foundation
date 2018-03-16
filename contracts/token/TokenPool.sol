@@ -1,15 +1,13 @@
 pragma solidity ^0.4.19;
 
-// pragma experimental ABIEncoderV2;
-
 import "zeppelin-solidity/contracts/ownership/Ownable.sol";
-import "zeppelin-solidity/contracts/token/ERC20/ERC20.sol";
+import "./SportikToken.sol";
 
 contract TokenPool is Ownable {
-  ERC20 public token;
-  mapping (uint256 => bool) batchRecord;
+  SportikToken public token;
+  mapping (uint256 => bool) nonceUsed;
 
-  function TokenPool(ERC20 _token) public {
+  function TokenPool(SportikToken _token) public {
     token = _token;
   }
 
@@ -21,29 +19,43 @@ contract TokenPool is Ownable {
     return token.transfer(owner, token.balanceOf(address(this)));
   }
 
-  function batchDeposit(uint256 batchId, address[] addrs, uint256[] amounts) onlyOwner public returns (bool) {
+  function batchDeposit(uint256 nonce, address[] addrs, uint256[] amounts) onlyOwner public returns (bool) {
     require(addrs.length == amounts.length);
-    if (batchRecord[batchId] == true) {
+    if (nonceUsed[nonce] == true) {
       return true;
     }
     // This pool must have been approved for the transferFrom call
     for (uint i = 0; i < addrs.length; i++) {
-      // require(token.allowance(addrs[i], address(this)) >= amounts[i]);
       token.transferFrom(addrs[i], address(this), amounts[i]);
     }
-    batchRecord[batchId] = true;
+    nonceUsed[nonce] = true;
     return true;
   }
 
-  function batchWithdraw(uint256 batchId, address[] addrs, uint256[] amounts) onlyOwner public returns (bool) {
+  function batchDelegatedDeposit(uint256 nonce, address[] addrs, uint256[] amounts, uint8[] vs, bytes32[] rs, bytes32[] ss) public returns (bool) {
+    require(amounts.length == addrs.length);
+    require(vs.length == addrs.length);
+    require(rs.length == addrs.length);
+    require(ss.length == addrs.length);
+    if (nonceUsed[nonce] == true) {
+      return true;
+    }
+    for (uint i = 0; i < addrs.length; i++) {
+      token.delegateTransfer(addrs[i], address(this), amounts[i], nonce, vs[i], rs[i], ss[i]);
+    }
+    nonceUsed[nonce] = true;
+    return true;
+  }
+
+  function batchWithdraw(uint256 nonce, address[] addrs, uint256[] amounts) onlyOwner public returns (bool) {
     require(addrs.length == amounts.length);
-    if (batchRecord[batchId] == true) {
+    if (nonceUsed[nonce] == true) {
       return true;
     }
     for (uint i = 0; i < addrs.length; i++) {
       token.transfer(addrs[i], amounts[i]);
     }
-    batchRecord[batchId] = true;
+    nonceUsed[nonce] = true;
     return true;
   }
 }

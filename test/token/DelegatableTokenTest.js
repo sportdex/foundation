@@ -32,8 +32,7 @@ contract('DelegatableToken', accounts => {
     );
     const hashed = Buffer.from(msg.replace('0x', ''), 'hex');
     let { r, s, v } = utils.ecsign(hashed, PRIVATE_KEY);
-    const sig = utils.bufferToHex(Buffer.concat([r, s, Buffer.from([v])]));
-    await token.delegateTransfer(from, to, amount, nonce, sig, { from: delegate });
+    await token.delegateTransfer(from, to, amount, nonce, r, s, v, { from: delegate });
 
     const event = token.DelegatedTransfer();
     event.get((error, logs) => {
@@ -48,7 +47,7 @@ contract('DelegatableToken', accounts => {
     assert.equal(await token.balanceOf(to), amount);
 
     try {
-      await token.delegateTransfer(from, to, amount, nonce, sig, { from: delegate });
+      await token.delegateTransfer(from, to, amount, nonce, r, s, v, { from: delegate });
       assert.fail();
     } catch (e) {}
     assert.equal(await token.balanceOf(from), amount);
