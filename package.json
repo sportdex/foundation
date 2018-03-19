@@ -1,9 +1,9 @@
 {
-  "name": "sporteum",
+  "name": "SportDex",
   "version": "0.0.1",
   "main": "index.js",
-  "repository": "https://github.com/sportikme/spo",
-  "author": "Leo Wu <wucy@sportik.me>",
+  "repository": "https://github.com/sportdex/foundation",
+  "author": "Leo Wu <wucy@sportdex.io>",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.40",

@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 
 import "zeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 import "../../contracts/token/DelegatableToken.sol";
-import "../../contracts/token/SportikToken.sol";
+import "../../contracts/token/SportDexToken.sol";
 import "../../contracts/token/TokenPool.sol";
 
 contract TokenUser {
@@ -55,7 +55,7 @@ contract TokenPoolTestBase {
     }
   }
 
-  function createPool(SportikToken token, uint initial) internal returns (TokenPool) {
+  function createPool(SportDexToken token, uint initial) internal returns (TokenPool) {
     TokenPool pool = new TokenPool(token);
     token.transfer(address(pool), initial);
     return pool;

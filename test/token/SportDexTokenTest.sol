@@ -2,13 +2,13 @@ pragma solidity ^0.4.18;
 
 import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
-import "../../contracts/token/SportikToken.sol";
+import "../../contracts/token/SportDexToken.sol";
 import "./TestUtils.sol";
 
-contract SportikTokenTest {
+contract SportDexTokenTest {
   function testTokenBasic() public {
-    SportikToken token = SportikToken(DeployedAddresses.SportikToken());
-    Assert.equal(token.name(), "SportikToken", "Incorrect token name");
+    SportDexToken token = SportDexToken(DeployedAddresses.SportDexToken());
+    Assert.equal(token.name(), "SportDexToken", "Incorrect token name");
     Assert.equal(token.symbol(), "SPORT", "Incorrect token symbol");
     Assert.equal(token.decimals(), uint256(18), "Incorrect decimals");
     Assert.equal(token.balanceOf(token.owner()), 1e27, "Incorrect total supply");
@@ -17,7 +17,7 @@ contract SportikTokenTest {
   function testTransfer() public {
     address owner = address(this);
     address addr = 0x1;
-    SportikToken token = new SportikToken();
+    SportDexToken token = new SportDexToken();
     token.transfer(addr, uint(1));
     Assert.equal(token.balanceOf(addr), uint(1), "Incorrect balance");
     Assert.equal(token.balanceOf(owner), uint(1e27 - 1), "Incorrect balance");
@@ -27,7 +27,7 @@ contract SportikTokenTest {
     address owner = address(this);
     address addr = 0x1;
     uint amount = 1000;
-    SportikToken token = new SportikToken();
+    SportDexToken token = new SportDexToken();
     Assert.isTrue(token.approve(addr, amount), "Fail to approve");
     Assert.equal(token.allowance(owner, addr), amount, "Incorrect allowance");
   }
@@ -35,7 +35,7 @@ contract SportikTokenTest {
   function testTransferFrom() public {
     uint amount = 1000;
     uint spent = 100;
-    SportikToken token = new SportikToken();
+    SportDexToken token = new SportDexToken();
     TokenUser user1 = new TokenUser();
     TokenUser user2 = new TokenUser();
     user1.setToken(token);
@@ -52,7 +52,7 @@ contract SportikTokenTest {
   function testPause() public {
     address addr = 0x1;
     uint amount = 1000;
-    SportikToken token = new SportikToken();
+    SportDexToken token = new SportDexToken();
     token.transfer(addr, amount);
     token.pause();
     bool shouldFail = address(token).call("transfer", addr, amount);

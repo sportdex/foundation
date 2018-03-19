@@ -2,7 +2,7 @@ import utils from 'ethereumjs-util';
 import web3Utils from 'web3-utils';
 
 const DelegatableTokenMock = artifacts.require("DelegatableTokenMock");
-const SportikToken = artifacts.require("SportikToken");
+const SportDexToken = artifacts.require("SportDexToken");
 
 // The hardcoded private key for accounts[0] in testrpc, used for signing
 const PRIVATE_KEY = Buffer.from('c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3', 'hex');
@@ -119,15 +119,15 @@ contract('DelegatableToken', accounts => {
   });
 });
 
-contract('SportikToken', accounts => {
+contract('SportDexToken', accounts => {
   it('should delegate transfer', async () => {
-    const token = await SportikToken.new();
+    const token = await SportDexToken.new();
     await assertFailure(() => testDelegateTransfer(token, accounts));
     await token.addDelegate(accounts[1]);
     await testDelegateTransfer(token, accounts);
   });
   it('should delegate approve', async () => {
-    const token = await SportikToken.new();
+    const token = await SportDexToken.new();
     await assertFailure(() => testDelegateApprove(token, accounts));
     await token.addDelegate(accounts[1]);
     await testDelegateApprove(token, accounts);

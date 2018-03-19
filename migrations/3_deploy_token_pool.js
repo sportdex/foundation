@@ -1,8 +1,8 @@
-const SportikToken = artifacts.require("./token/SportikToken.sol");
+const SportDexToken = artifacts.require("./token/SportDexToken.sol");
 const TokenPool = artifacts.require("./token/TokenPool.sol");
 
 async function deploy(deployer) {
-  const token = await SportikToken.deployed();
+  const token = await SportDexToken.deployed();
   deployer.deploy(TokenPool, token.address);
 }
 

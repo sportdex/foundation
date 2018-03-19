@@ -1,13 +1,13 @@
 pragma solidity ^0.4.19;
 
 import "zeppelin-solidity/contracts/ownership/Ownable.sol";
-import "./SportikToken.sol";
+import "./SportDexToken.sol";
 
 contract TokenPool is Ownable {
-  SportikToken public token;
+  SportDexToken public token;
   mapping (uint256 => bool) nonceUsed;
 
-  function TokenPool(SportikToken _token) public {
+  function TokenPool(SportDexToken _token) public {
     token = _token;
   }
 
