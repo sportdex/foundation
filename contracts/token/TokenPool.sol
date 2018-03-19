@@ -41,7 +41,7 @@ contract TokenPool is Ownable {
       return true;
     }
     for (uint i = 0; i < addrs.length; i++) {
-      token.delegateTransfer(addrs[i], address(this), amounts[i], nonce, vs[i], rs[i], ss[i]);
+      token.delegatedTransfer(addrs[i], address(this), amounts[i], nonce, vs[i], rs[i], ss[i]);
     }
     nonceUsed[nonce] = true;
     return true;

@@ -29,7 +29,7 @@ contract SportikToken is PausableToken, DelegatableToken {
     delete delegateWhitelist[delegate];
   }
 
-  function delegateTransfer(
+  function delegatedTransfer(
     address from,
     address to,
     uint256 value,
@@ -37,6 +37,17 @@ contract SportikToken is PausableToken, DelegatableToken {
     uint8 v, bytes32 r, bytes32 s
   ) public returns (bool) {
     require(delegateWhitelist[msg.sender]);
-    return super.delegateTransfer(from, to, value, nonce, v, r, s);
+    return super.delegatedTransfer(from, to, value, nonce, v, r, s);
+  }
+
+  function delegatedApprove(
+    address owner,
+    address spender,
+    uint256 value,
+    uint256 nonce,
+    uint8 v, bytes32 r, bytes32 s
+  ) public returns (bool) {
+    require(delegateWhitelist[msg.sender]);
+    return super.delegatedApprove(owner, spender, value, nonce, v, r, s);
   }
 }
