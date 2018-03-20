@@ -16,8 +16,8 @@ function signMethodCall(callerAddress, contractAddress, methodName, methodArgs) 
     ...methodArgs,
   ];
   const message = web3Utils.soliditySha3(...sigArgs);
-  const hashedMessage = Buffer.from(message.replace('0x', ''), 'hex');
-  const { v, r, s } = utils.ecsign(hashedMessage, PRIVATE_KEY);
+  const messageHex = Buffer.from(message.replace('0x', ''), 'hex');
+  const { v, r, s } = utils.ecsign(messageHex, PRIVATE_KEY);
   return { v, r: utils.bufferToHex(r), s: utils.bufferToHex(s) };
 }
 
