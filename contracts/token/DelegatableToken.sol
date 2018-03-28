@@ -31,6 +31,7 @@ contract DelegatableToken is StandardToken {
     balances[to] = balances[to].add(value);
     delegatedTxns[hash] = true;
     DelegatedTransfer(delegate, from, to, value);
+    Transfer(from, to, value);
     return true;
   }
 
@@ -56,6 +57,7 @@ contract DelegatableToken is StandardToken {
     allowed[owner][spender] = value;
     delegatedTxns[hash] = true;
     DelegatedApprove(delegate, owner, spender, value);
+    Approval(owner, spender, value);
     return true;
   }
 }

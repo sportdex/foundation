@@ -1,4 +1,8 @@
 require('@babel/register');
+require('dotenv').config();
+
+const PrivateKeyProvider = require('truffle-privatekey-provider');
+const privateKey = process.env.PRIVATE_KEY;
 
 module.exports = {
   networks: {
@@ -7,17 +11,15 @@ module.exports = {
       port: 9545,
       network_id: '*',
     },
-    // Start geth by: geth --rinkeby --rpc --rpcapi db,eth,net,web3,protocol console
-    // and unlock the from account by: personal.unlockAccount(address)
     rinkeby: {
-      host: 'localhost',
-      port: 8545,
-      from: '0xA711642Dec94A673f0E3707010311C531E6F17fB',
+      provider: new PrivateKeyProvider(privateKey, 'https://rinkeby.infura.io'),
       network_id: 4,
       gas: 4698712,
     },
     mainnet: {
+      provider: new PrivateKeyProvider(privateKey, 'https://mainnet.infura.io'),
       network_id: 1,
+      gas: 5000000,
     },
   },
   solc: {
