@@ -5,7 +5,7 @@ import "./SportDexToken.sol";
 
 contract TokenPool is Ownable {
   SportDexToken public token;
-  mapping (uint256 => bool) nonceUsed;
+  mapping (uint256 => bool) public nonceUsed;
 
   function TokenPool(SportDexToken _token) public {
     token = _token;
@@ -32,7 +32,7 @@ contract TokenPool is Ownable {
     return true;
   }
 
-  function batchDelegatedDeposit(uint256 nonce, address[] addrs, uint256[] amounts, uint8[] vs, bytes32[] rs, bytes32[] ss) public returns (bool) {
+  function batchDelegatedDeposit(uint256 nonce, address[] addrs, uint256[] amounts, uint8[] vs, bytes32[] rs, bytes32[] ss) onlyOwner public returns (bool) {
     require(amounts.length == addrs.length);
     require(vs.length == addrs.length);
     require(rs.length == addrs.length);
