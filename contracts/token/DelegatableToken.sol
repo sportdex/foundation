@@ -4,7 +4,7 @@ import "zeppelin-solidity/contracts/token/ERC20/StandardToken.sol";
 
 contract DelegatableToken is StandardToken {
   event DelegatedTransfer(address indexed delegate, address indexed from, address indexed to, uint256 amount);
-  event DelegatedApprove(address indexed delegate, address indexed owner, address indexed spender, uint256 amount);
+  event DelegatedApproval(address indexed delegate, address indexed owner, address indexed spender, uint256 amount);
 
   mapping (bytes32 => bool) delegatedTxns;
 
@@ -56,7 +56,7 @@ contract DelegatableToken is StandardToken {
 
     allowed[owner][spender] = value;
     delegatedTxns[hash] = true;
-    DelegatedApprove(delegate, owner, spender, value);
+    DelegatedApproval(delegate, owner, spender, value);
     Approval(owner, spender, value);
     return true;
   }

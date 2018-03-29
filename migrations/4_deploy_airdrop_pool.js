@@ -1,9 +1,9 @@
 const SportDexToken = artifacts.require("./token/SportDexToken.sol");
-const TokenPool = artifacts.require("./token/TokenPool.sol");
+const AirdropPool = artifacts.require("./token/AirdropPool.sol");
 
 async function deploy(deployer) {
   const token = await SportDexToken.deployed();
-  deployer.deploy(TokenPool, token.address);
+  deployer.deploy(AirdropPool, token.address);
 }
 
 module.exports = deploy;
